@@ -20,13 +20,10 @@ print_done() {
  / __ `/ / __ `__ \/ __ \/ ___/ __/  / ___/ _ \/ __ `/ __  / / / /
 / /_/ / / / / / / / /_/ (__  ) /_   / /  /  __/ /_/ / /_/ / /_/ / 
 \__,_/_/_/ /_/ /_/\____/____/\__/  /_/   \___/\__,_/\__,_/\__, /  
-                                                         /____/                                                      
-.. a few steps to (still) do manually before your FRUBU ready.
-
-== Resilio Sync ==
-- https://127.0.0.1:8888/
-- Add the licence from Proton Pass
-- Setup the Sync directories
+                                                         /____/
+1. REBOOT the system to start everything properly and
+2. MANUALY SETUP the last things (~/frubu/README.md)
+3. HAVE FUN
 
 EOF
 }
@@ -35,6 +32,50 @@ EOF
 clear
 print_logo
 
+# Exit on any error
+set -e
 
+# Source utility functions
+source utils.sh
+
+# Source the package list
+if [ ! -f "packages.conf" ]; then
+  echo "Error: packages.conf not found!"
+  exit 1
+fi
+
+source packages.conf
+
+echo "Starting full system setup..."
+
+# Update the system first
+echo "Updating system..."
+sudo apt -y update
+sudo apt -y upgrade
+sudo apt -y autoremove
+
+# Install packages by category
+echo "Installing system utilities..."
+install_packages "${SYSTEM[@]}"
+
+echo "Installing environment drivers..."
+install_packages "${DRIVERS[@]}"
+
+echo "Installing desktop utilities..."
+install_packages "${DESKTOP_UTILS[@]}"
+
+echo "Installing desktop applications..."
+install_packages "${DESKTOP_APPS[@]}"
+
+echo "Installing developer utilities..."
+install_packages "${DEV[@]}"
+
+# Install snaps
+echo "Install Snaps..."
+install_snaps "${SNAP[@]}"
+
+# Some programs just run better as flatpaks. Like discord/spotify
+echo "Installing flatpaks (like discord and spotify)"
+# . install-flatpaks.sh
 
 print_done
