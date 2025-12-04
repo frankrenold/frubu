@@ -78,4 +78,32 @@ install_snaps "${SNAP[@]}"
 echo "Installing flatpaks"
 install_flatpaks "${FLATPAK[@]}"
 
+# Run custom installers
+echo "Run custom installers..."
+bash ./runner.sh installers
+
+# Enable services
+echo "Configuring services..."
+for service in "${SERVICES[@]}"; do
+  if ! systemctl is-enabled "$service" &> /dev/null; then
+    echo "Enabling $service..."
+    sudo systemctl enable "$service"
+  else
+    echo "$service is already enabled"
+  fi
+done
+
+# Add configuration files to .config and all shared files to .local
+echo "Writing general configuration and shared files..."
+rsync -av --ignore-existing config/ ~/.config
+rsync -av --ignore-existing local/ ~/.local
+
+# Install gnome specific things to make it like a tiling WM
+echo "Installing Gnome extensions..."
+# . gnome/gnome-extensions.sh
+echo "Setting Gnome hotkeys..."
+# . gnome/gnome-hotkeys.sh
+echo "Configuring Gnome..."
+# . gnome/gnome-settings.sh
+
 print_done

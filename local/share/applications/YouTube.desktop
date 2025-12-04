@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=YouTube
+Type=Application
+Icon=youtube
+Exec=brave-browser --profile-directory="Profile-YouTube" --app=https://www.youtube.com/feed/subscriptions
+StartupWMClass=brave-www.youtube.com__feed_subscriptions-Profile-YouTube
+Terminal=false
+Categories=AudioVideo;

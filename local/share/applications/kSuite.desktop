@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=kSuite Infomaniak
+Type=Application
+Icon=k-suite
+Exec=brave-browser --profile-directory="Profile-kSuite" --app=https://ksuite.infomaniak.com
+StartupWMClass=brave-ksuite.infomaniak.com__-Profile-kSuite
+Terminal=false
+Categories=Office;

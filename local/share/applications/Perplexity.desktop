@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Perplexity
+Type=Application
+Icon=perplexity
+Exec=brave-browser --profile-directory="Profile-Perplexity" --app=https://www.perplexity.ai
+StartupWMClass=brave-www.perplexity.ai__-Profile-Perplexity
+Terminal=false
+Categories=Utility;

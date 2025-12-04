@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=protonvpn-app
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[de_DE]=Proton VPN
+Name=Proton VPN
+Comment[de_DE]=
+Comment=

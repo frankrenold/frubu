@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Synology Photos
+Type=Application
+Icon=synology-photos
+Exec=brave-browser --profile-directory="Profile-SynologyPhotos" --app=https://indigo1.synology.me:5001/?launchApp=SYNO.Foto.AppInstance
+StartupWMClass=brave-indigo1.synology.me__-Profile-SynologyPhotos
+Terminal=false
+Categories=Graphics;

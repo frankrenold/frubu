@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Apple Music
+Type=Application
+Icon=apple-music
+Exec=brave-browser --profile-directory="Profile-AppleMusic" --app=https://music.apple.com/ch/home
+StartupWMClass=brave-music.apple.com__ch_home-Profile-AppleMusic
+Terminal=false
+Categories=AudioVideo;
