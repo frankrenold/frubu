@@ -28,12 +28,6 @@ print_done() {
 EOF
 }
 
-# Install gum (https://github.com/charmbracelet/gum) for fancy shell scripts
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
-echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
-sudo apt update && sudo apt install gum
-
 # Clear screen and show logo
 clear
 print_logo
@@ -53,30 +47,35 @@ fi
 source packages.conf
 
 # Update the system first
-gum spin --spinner meter --title "Update the full system ..." -- sudo apt -y update && sudo apt -y upgrade && sudo apt -y autoremove
+echo "Updating the system ..."
+sudo apt update -qq > /dev/null 2>&1 && \
+sudo apt -qq -y upgrade > /dev/null 2>&1 && \
+sudo apt -qq -y autoremove > /dev/null 2>&1
+# Use next line instead for debugging
+# sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
 
 # Install packages by category
-echo "Installing system utilities..."
+echo "Installing system utilities ..."
 install_packages "${SYSTEM[@]}"
 
-echo "Installing environment drivers..."
+echo "Installing environment drivers ..."
 install_packages "${DRIVERS[@]}"
 
-echo "Installing desktop utilities..."
+echo "Installing desktop utilities ..."
 install_packages "${DESKTOP_UTILS[@]}"
 
-echo "Installing desktop applications..."
+echo "Installing desktop applications ..."
 install_packages "${DESKTOP_APPS[@]}"
 
-echo "Installing developer utilities..."
+echo "Installing developer utilities ..."
 install_packages "${DEV[@]}"
 
 # Install snaps
-echo "Install Snaps..."
+echo "Installing Snaps..."
 install_snaps "${SNAP[@]}"
 
-# Some programs just run better as flatpaks. Like discord/spotify
-echo "Installing flatpaks (like discord and spotify)"
-# . install-flatpaks.sh
+# Install flatpaks
+echo "Installing flatpaks"
+install_flatpaks "${FLATPAK[@]}"
 
 print_done

@@ -57,6 +57,41 @@ install_snaps() {
   fi
 }
 
+# Function to check if flatpak is installed
+is_flatpak_installed() {
+    local flatpak_name="$1"
+
+    # Check if flatpak command exists
+    if ! command -v flatpak &> /dev/null; then
+        echo "Error: flatpak command not found. Install flatpak first." >&2
+        return 2
+    fi
+
+    # Check if package is installed
+    if flatpak list --app | grep -q "$flatpak_name\s"; then
+        return 0  # Success: package is installed
+    else
+        return 1  # Failure: package not installed
+    fi
+}
+
+# Function to install flatpaks if not already installed
+install_flatpaks() {
+    local flatpaks=("$@")
+    local to_install=()
+
+    for fpk in "${flatpaks[@]}"; do
+        if ! is_flatpak_installed "$fpk"; then
+            to_install+=("$fpk")
+        fi
+    done
+
+    if [ ${#to_install[@]} -ne 0 ]; then
+        echo "Installing: ${to_install[*]}"
+        sudo flatpak install --assumeyes "${to_install[@]}"
+    fi
+}
+
 # Function to stop all running processes by name
 stop_all() {
   echo "Searching for running $1 processes ..."
