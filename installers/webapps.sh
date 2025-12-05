@@ -20,6 +20,3 @@ mkdir -p ~/.config/BraveSoftware/Brave-Browser/Profile-Perplexity
 mkdir -p ~/.config/BraveSoftware/Brave-Browser/Profile-kSuite
 mkdir -p ~/.config/BraveSoftware/Brave-Browser/Profile-SynologyPhotos
 mkdir -p ~/.config/BraveSoftware/Brave-Browser/Profile-AppleMusic
-
-# Add all .desktop files and icons
-rsync -av --ignore-existing local/ ~/.local

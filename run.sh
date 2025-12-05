@@ -93,10 +93,12 @@ for service in "${SERVICES[@]}"; do
   fi
 done
 
-# Add configuration files to .config and all shared files to .local
-echo "Writing general configuration and shared files..."
-rsync -av --ignore-existing config/ ~/.config
-rsync -av --ignore-existing local/ ~/.local
+# Add configuration file to home directory
+echo "Writing general configuration and shared files ..."
+rsync -av --ignore-existing home/ ~
+
+# set zsh as default shell
+chsh -s $(which zsh)
 
 # Install gnome specific things to make it like a tiling WM
 echo "Installing Gnome extensions..."
