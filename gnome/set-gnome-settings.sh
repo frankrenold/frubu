@@ -8,3 +8,6 @@ gsettings set org.gnome.desktop.calendar show-weekdate true
 
 # Turn off ambient sensors for setting screen brightness (they rarely work well!)
 gsettings set org.gnome.settings-daemon.plugins.power ambient-enabled false
+
+# Trun on scrolling in natural direction
+gsettings set org.gnome.desktop.peripherals.mouse natural-scroll true

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Importiere den Resilio Sync GPG-Schlüssel
-curl -sL https://linux-packages.resilio.com/resilio-sync/key.asc | gpg --dearmor -o /usr/share/keyrings/resilio-sync-keyring.gpg
+curl -sL https://linux-packages.resilio.com/resilio-sync/key.asc | sudo gpg --dearmor -o /usr/share/keyrings/resilio-sync-keyring.gpg
 
 # Füge das Repository hinzu
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/resilio-sync-keyring.gpg] https://linux-packages.resilio.com/resilio-sync/deb resilio-sync non-free" | sudo tee /etc/apt/sources.list.d/resilio-sync.list
