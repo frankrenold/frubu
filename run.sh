@@ -26,6 +26,7 @@ print_done() {
 3. HAVE FUN
 
 EOF
+gum confirm "Ready to reboot for all settings to take effect?" && sudo reboot
 }
 
 # Clear screen and show logo
@@ -79,33 +80,18 @@ echo "Installing flatpaks"
 install_flatpaks "${FLATPAK[@]}"
 
 # Run custom installers
-echo "Run custom installers..."
+echo "Run custom installers ..."
 bash ./runner.sh installers
 
-# Enable services
-echo "Configuring services..."
-for service in "${SERVICES[@]}"; do
-  if ! systemctl is-enabled "$service" &> /dev/null; then
-    echo "Enabling $service..."
-    sudo systemctl enable "$service"
-  else
-    echo "$service is already enabled"
-  fi
-done
+# Install gnome specific things
+echo "Setup Gnome .."
+bash ./runner.sh gnome
 
-# Add configuration file to home directory
+# Add configuration file to home directory if not yet existing
 echo "Writing general configuration and shared files ..."
-rsync -av --ignore-existing home/ ~
+rsync -av --ignore-existing home/ $HOME
 
 # set zsh as default shell
 chsh -s $(which zsh)
-
-# Install gnome specific things to make it like a tiling WM
-echo "Installing Gnome extensions..."
-# . gnome/gnome-extensions.sh
-echo "Setting Gnome hotkeys..."
-# . gnome/gnome-hotkeys.sh
-echo "Configuring Gnome..."
-# . gnome/gnome-settings.sh
 
 print_done
